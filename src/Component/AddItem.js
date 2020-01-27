@@ -6,7 +6,8 @@ import {
   makeStyles,
   MenuItem,
   Select,
-  Box
+  Box,
+  Grid
 } from "@material-ui/core";
 
 const AddItem = ({
@@ -33,20 +34,16 @@ const AddItem = ({
   };
 
   const handleClick = () => {
-    if (addItem !== "") {
-      addNewItem(list, addItem);
-      setAddItem("");
-      setList("");
-      setUpdateList("");
-      setUpdateValue("");
-    }
+    addNewItem(list, addItem);
+    setAddItem("");
+    setList("");
+    setUpdateList("");
+    setUpdateValue("");
   };
 
   const handleClickList = () => {
-    if (addItem !== "") {
-      addNewList(addList);
-      setAddList("");
-    }
+    addNewList(addList);
+    setAddList("");
   };
 
   return (
@@ -55,8 +52,9 @@ const AddItem = ({
       maxWidth="md"
       direction="row"
       justify="space-around"
+      className={classes.paper}
     >
-      <Box className={classes.paper} component="main" maxWidth="md">
+      <Grid item md={6} className={classes.directionColumn} component="div">
         <TextField
           label="Add List"
           type="text"
@@ -64,27 +62,25 @@ const AddItem = ({
           margin="normal"
           variant="outlined"
           required
-          md={12}
-          sm={12}
-          xs={12}
+          autoFocus
           value={addList}
           onChange={e => setAddList(e.target.value)}
         />
-        <Button variant="contained" color="primary" onClick={handleClickList}>
-          Add New List
-        </Button>
-      </Box>
-      <Box className={classes.paper} maxWidth="md">
-        <Box className={classes.directionRow}>
+        {addList && (
+          <Button variant="contained" color="primary" onClick={handleClickList}>
+            Add New List
+          </Button>
+        )}
+      </Grid>
+      <Grid item md={6}>
+        <Box className={classes.directionColumn}>
           <Select
             label="List"
             type="text"
             name="List"
             variant="outlined"
-            sm={12}
-            xs={12}
-            md={6}
             required
+            autoFocus
             className={classes.formControl}
             value={list}
             onChange={e => handleList(e)}
@@ -101,24 +97,24 @@ const AddItem = ({
             name="list"
             margin="normal"
             variant="outlined"
-            sm={12}
-            xs={12}
-            md={6}
             required
             value={addItem}
             onChange={e => setAddItem(e.target.value)}
           />
         </Box>
-        <Button
-          type="submit"
-          variant="contained"
-          color={updateValue === "" ? "primary" : "secondary"}
-          className={classes.submit}
-          onClick={handleClick}
-        >
-          {updateValue === "" ? "Add Item" : "Update Item"}
-        </Button>
-      </Box>
+        {addItem && (
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            color={updateValue === "" ? "primary" : "secondary"}
+            className={classes.submit}
+            onClick={handleClick}
+          >
+            {updateValue === "" ? "Add Item" : "Update Item"}
+          </Button>
+        )}
+      </Grid>
     </Container>
   );
 };
@@ -127,8 +123,8 @@ const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(3),
     display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
+    justifyContent: "center",
+    flexWrap: "wrap"
   },
   // form: {
   //   marginTop: theme.spacing(1)
@@ -140,9 +136,10 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2)
   },
-  directionRow: {
+  directionColumn: {
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "column",
+    margin: "10px"
   }
 }));
 

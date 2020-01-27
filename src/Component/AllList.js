@@ -1,27 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { List } from "@material-ui/core";
 import MainList from "./MainList";
-import { Grid, CssBaseline, makeStyles, Button } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
+import { Box, CssBaseline, makeStyles } from "@material-ui/core";
 import AddItem from "./AddItem";
 
 const AllList = () => {
   const classes = useStyles();
-  //  State
+
   const [allItems, setAllItems] = useState([]);
   const [ListTitles, setListTitles] = useState([]);
 
-  // Add NEw List
   const addNewList = async AddList => {
-    // console.log("AddNewList", AddList);
-    // await allItems.title.push(AddList);
     const newList = { title: AddList, subitem: [] };
-    console.log("newList", newList);
     setAllItems([...allItems, newList]);
     setListTitles([...ListTitles, newList.title]);
     localStorage.setItem(newList.title, newList.subitem);
   };
-  // Delete List
+
   const deleteList = async listTitle => {
     let arr = allItems;
     for (let i = 0; i < allItems.length; i++) {
@@ -61,7 +56,6 @@ const AllList = () => {
       value.push(obj);
       titleList.push(keys[i]);
     }
-    console.log("something", value[0]);
     await setAllItems(value);
     await setListTitles(titleList);
   };
@@ -97,9 +91,9 @@ const AllList = () => {
   };
 
   return (
-    <Grid container className={classes.root}>
+    <Box className={classes.root}>
       <CssBaseline />
-      <Grid item xs={12} sm={12} md={6}>
+      <Box xs={12} sm={12} md={6}>
         <AddItem
           addNewList={addNewList}
           addNewItem={addNewItem}
@@ -109,46 +103,27 @@ const AllList = () => {
           setUpdateValue={setUpdateValue}
           setUpdateList={setUpdateList}
         />
-      </Grid>
-      <Grid item xs={12} sm={12} md={6}>
-        <List component="div">
-          {allItems.map(listItem => (
-            <MainList
-              key={listItem.title}
-              listItem={listItem}
-              deleteItem={deleteItem}
-              deleteList={deleteList}
-              handleUpdateValue={handleUpdateValue}
-              handleUpdateList={handleUpdateList}
-            />
-          ))}
-        </List>
-      </Grid>
-      <Button
-        variant="fab"
-        color="primary"
-        aria-label="Add List"
-        className={classes.floatbutton}
-      >
-        <AddIcon />
-      </Button>
-    </Grid>
+      </Box>
+
+      <List component="div" xs={12} sm={12} md={6}>
+        {allItems.map(listItem => (
+          <MainList
+            key={listItem.title}
+            listItem={listItem}
+            deleteItem={deleteItem}
+            deleteList={deleteList}
+            handleUpdateValue={handleUpdateValue}
+            handleUpdateList={handleUpdateList}
+          />
+        ))}
+      </List>
+    </Box>
   );
 };
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    width: "100%",
-    alignItems: "center",
-    backgroundColor: theme.palette.background.paper
-  },
   nested: {
     paddingLeft: theme.spacing(4)
-  },
-  floatbutton: {
-    position: "absolute",
-    bottom: theme.spacing(2),
-    right: theme.spacing(2)
   }
 }));
 

@@ -82,10 +82,8 @@ const AllList = ({
 };
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    width: "100%",
-    alignItems: "center",
-    backgroundColor: theme.palette.background.paper
+  DeleteIcon: {
+    color: "red"
   },
   nested: {
     paddingLeft: theme.spacing(4)

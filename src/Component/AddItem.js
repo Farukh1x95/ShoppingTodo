@@ -6,7 +6,7 @@ import {
   makeStyles,
   MenuItem,
   Select,
-  Grid
+  Box
 } from "@material-ui/core";
 
 const AddItem = ({
@@ -43,20 +43,27 @@ const AddItem = ({
   };
 
   const handleClickList = () => {
-    // console.log("add NEw Lsit", addNewList);
-    addNewList(addList);
-    setAddList("");
+    if (addItem !== "") {
+      addNewList(addList);
+      setAddList("");
+    }
   };
 
   return (
-    <Container className={classes.paper} component="div" maxWidth="md">
-      <Grid item md={6}>
+    <Container
+      component="div"
+      maxWidth="md"
+      direction="row"
+      justify="space-around"
+    >
+      <Box className={classes.paper} component="main" maxWidth="md">
         <TextField
           label="Add List"
           type="text"
           name="addlsitmain"
           margin="normal"
           variant="outlined"
+          required
           md={12}
           sm={12}
           xs={12}
@@ -64,53 +71,54 @@ const AddItem = ({
           onChange={e => setAddList(e.target.value)}
         />
         <Button variant="contained" color="primary" onClick={handleClickList}>
-          Add New LIST
+          Add New List
         </Button>
-      </Grid>
-      <Grid item md={6}>
-        <div className={classes.form} noValidate>
+      </Box>
+      <Box className={classes.paper} maxWidth="md">
+        <Box className={classes.directionRow}>
           <Select
             label="List"
             type="text"
             name="List"
             variant="outlined"
-            md={6}
             sm={12}
             xs={12}
+            md={6}
+            required
             className={classes.formControl}
             value={list}
             onChange={e => handleList(e)}
           >
             {ListTitles.map(cur => (
-              <MenuItem value={cur}>{cur}</MenuItem>
+              <MenuItem key={cur} value={cur}>
+                {cur}
+              </MenuItem>
             ))}
           </Select>
-
           <TextField
             label="List"
             type="text"
             name="list"
             margin="normal"
             variant="outlined"
-            md={6}
             sm={12}
             xs={12}
+            md={6}
+            required
             value={addItem}
             onChange={e => setAddItem(e.target.value)}
           />
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={handleClick}
-          >
-            {updateValue === "" ? "Add Item" : "Update Item"}
-          </Button>
-        </div>
-      </Grid>
+        </Box>
+        <Button
+          type="submit"
+          variant="contained"
+          color={updateValue === "" ? "primary" : "secondary"}
+          className={classes.submit}
+          onClick={handleClick}
+        >
+          {updateValue === "" ? "Add Item" : "Update Item"}
+        </Button>
+      </Box>
     </Container>
   );
 };
@@ -119,18 +127,22 @@ const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(3),
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center"
   },
-  form: {
-    marginTop: theme.spacing(1)
-  },
+  // form: {
+  //   marginTop: theme.spacing(1)
+  // },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: "35%"
+    minWidth: "50%"
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
+  },
+  directionRow: {
+    display: "flex",
+    flexDirection: "row"
   }
 }));
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { List } from "@material-ui/core";
+import { List, Grid } from "@material-ui/core";
 import MainList from "./MainList";
 import { Box, CssBaseline, makeStyles } from "@material-ui/core";
 import AddItem from "./AddItem";
@@ -104,19 +104,22 @@ const AllList = () => {
           setUpdateList={setUpdateList}
         />
       </Box>
-
-      <List component="div" xs={12} sm={12} md={6}>
-        {allItems.map(listItem => (
-          <MainList
-            key={listItem.title}
-            listItem={listItem}
-            deleteItem={deleteItem}
-            deleteList={deleteList}
-            handleUpdateValue={handleUpdateValue}
-            handleUpdateList={handleUpdateList}
-          />
-        ))}
-      </List>
+      <Grid container justify="center">
+        <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+          <List component="div">
+            {allItems.map(listItem => (
+              <MainList
+                key={listItem.title}
+                listItem={listItem}
+                deleteItem={deleteItem}
+                deleteList={deleteList}
+                handleUpdateValue={handleUpdateValue}
+                handleUpdateList={handleUpdateList}
+              />
+            ))}
+          </List>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

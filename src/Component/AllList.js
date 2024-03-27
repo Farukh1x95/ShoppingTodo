@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { List } from "@material-ui/core";
-import MainList from "./MainList";
-import { Grid, CssBaseline, Container } from "@material-ui/core";
+import { Container, CssBaseline, Grid, List } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import AddItem from "./AddItem";
+import MainList from "./MainList";
 
 const AllList = () => {
   const [allItems, setAllItems] = useState([
@@ -55,9 +54,7 @@ const AllList = () => {
       let key = allItems[i].title;
       if (key === listTitle) {
         let arr = allItems;
-        arr[i].subitem = allItems[i].subitem.filter(
-          (cur, ind) => ind !== index
-        );
+        arr[i].subitem = allItems[i].subitem.filter((cur, ind) => ind !== index);
         setAllItems([...arr]);
       }
     }
@@ -71,8 +68,8 @@ const AllList = () => {
 
         <Grid item md={6}>
           <List component="div">
-            {allItems.map((listItem, index) => (
-              <MainList listItem={listItem} deleteItem={deleteItem} />
+            {allItems.map((listItem, key) => (
+              <MainList key={key} listItem={listItem} deleteItem={deleteItem} />
             ))}
           </List>
         </Grid>

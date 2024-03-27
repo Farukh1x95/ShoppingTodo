@@ -1,21 +1,15 @@
-import React, { useState, Fragment } from "react";
-import {
-  List,
-  ListItem,
-  ListItemText,
-  Collapse,
-  makeStyles
-} from "@material-ui/core";
-import AddItem from "./AddItem";
+import { Collapse, List, ListItem, ListItemText } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import React, { Fragment, useState } from "react";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: "100%",
-    alignItems: "center",
-    backgroundColor: theme.palette.background.paper
+    alignItems: "center"
+    // backgroundColor: theme.palette.background.paper
   },
   nested: {
-    paddingLeft: theme.spacing(4)
+    paddingLeft: "32px"
   }
 }));
 
@@ -31,7 +25,7 @@ const AllList = ({ listItem, deleteItem }) => {
     deleteItem(title, index);
   };
 
-  const updateItem = (listTitle, index) => {};
+  // const updateItem = (listTitle, index) => {};
 
   return (
     <Fragment>
@@ -41,13 +35,8 @@ const AllList = ({ listItem, deleteItem }) => {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {subitem.map((subtask, index) => (
-            <ListItem
-              key={index}
-              button
-              onClick={() => handleDelete(title, index)}
-              className={classes.nested}
-            >
-              <span onClick={() => updateItem(title, index)}>Update</span>
+            <ListItem key={index} onClick={() => handleDelete(title, index)} className={classes.nested}>
+              <span onClick={() => {}}>Update</span>
               <ListItemText primary={subtask} />
             </ListItem>
           ))}

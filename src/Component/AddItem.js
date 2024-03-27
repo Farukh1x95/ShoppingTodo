@@ -1,25 +1,19 @@
+import { Button, Container, MenuItem, Select, TextField } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import React, { useState } from "react";
-import {
-  Button,
-  TextField,
-  Container,
-  makeStyles,
-  MenuItem,
-  Select
-} from "@material-ui/core";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   paper: {
-    marginTop: theme.spacing(3),
+    marginTop: "24px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
   },
   form: {
-    marginTop: theme.spacing(1)
+    marginTop: "8px"
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: "24px 0px 16px"
   }
 }));
 
@@ -35,7 +29,7 @@ const AddItem = ({ addNewItem, ListTitles }) => {
   //   setAddItem("");
   // };
 
-  const handleList = e => {
+  const handleList = (e) => {
     setList(e.target.value);
   };
 
@@ -48,36 +42,17 @@ const AddItem = ({ addNewItem, ListTitles }) => {
   return (
     <Container className={classes.paper} component="div" maxWidth="xs">
       <div className={classes.form} noValidate>
-        <TextField
-          label="Name"
-          type="text"
-          name="name"
-          margin="normal"
-          variant="outlined"
-          required
-          value={addItem}
-          onChange={e => setAddItem(e.target.value)}
-        />
+        <TextField label="Name" type="text" name="name" margin="normal" variant="outlined" required value={addItem} onChange={(e) => setAddItem(e.target.value)} />
 
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={list}
-          onChange={e => handleList(e)}
-        >
-          {ListTitles.map(cur => (
-            <MenuItem value={cur}>{cur}</MenuItem>
+        <Select labelId="demo-simple-select-label" id="demo-simple-select" value={list} onChange={(e) => handleList(e)}>
+          {ListTitles.map((cur, index) => (
+            <MenuItem key={index} value={cur}>
+              {cur}
+            </MenuItem>
           ))}
         </Select>
 
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          className={classes.submit}
-          onClick={handleClick}
-        >
+        <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} onClick={handleClick}>
           Add Item
         </Button>
       </div>

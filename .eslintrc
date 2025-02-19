@@ -6,6 +6,8 @@
     "node": true
   },
   "extends": [
+    "react-app", // This is provided by react-scripts
+    "react-app/jest",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:prettier/recommended"
